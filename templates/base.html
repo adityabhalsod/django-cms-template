@@ -1,0 +1,23 @@
+{% load cms_tags menu_tags sekizai_tags static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no">
+
+    <!-- Primary meta tags -->
+    <meta name="title" content="">
+    <meta name="description" content="">
+
+    <title>Ringtone | {% block title %}{% endblock title %}</title>
+    {% render_block "css" %}
+</head>
+
+<body>
+    {% cms_toolbar %}
+    {% block content %}{% endblock content %}
+    {% render_block "js" %}
+</body>
+
+</html>
