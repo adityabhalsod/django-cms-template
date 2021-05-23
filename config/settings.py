@@ -182,7 +182,7 @@ EXTRA_PLUGIN_APPS = [
 ]
 
 CUSTOM_PLUGIN_APPS = [
-
+    "config"
 ]
 
 INSTALLED_APPS = CMS_APPS + CUSTOM_PLUGIN_APPS
@@ -247,14 +247,6 @@ SUPER_USER = {
     "ADMIN_EMAIL": os.getenv("ADMIN_EMAIL"),
     "ADMIN_USERNAME": os.getenv("ADMIN_USERNAME"),
     "ADMIN_PASSWORD": os.getenv("ADMIN_PASSWORD"),
-}
-
-SEND_GRID_API_KEY = os.getenv("SEND_GRID_API_KEY")
-
-EMAIL_CONFIG = {
-    "form_email": os.getenv("FORM_EMAIL"),
-    "to_email": os.getenv("TO_EMAIL"),
-    "subject": os.getenv("SUBJECT"),
 }
 
 
