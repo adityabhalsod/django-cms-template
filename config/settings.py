@@ -83,8 +83,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(DATA_DIR, "media")
-STATIC_ROOT = os.path.join(DATA_DIR, "static")
+MEDIA_ROOT = os.path.join(DATA_DIR, os.getenv("MEDIA_ROOT", "media"))
+STATIC_ROOT = os.path.join(DATA_DIR, os.getenv("STATIC_ROOT", "static"))
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "staticfiles"),)
 SITE_ID = 1
@@ -182,7 +182,8 @@ EXTRA_PLUGIN_APPS = [
 ]
 
 CUSTOM_PLUGIN_APPS = [
-    "config"
+    "config",
+    "djangocms_redirect",
 ]
 
 INSTALLED_APPS = CMS_APPS + CUSTOM_PLUGIN_APPS
@@ -227,11 +228,11 @@ DATABASES: Dict[str, Dict[str, Union[str, int]]] = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "HOST": os.getenv("DATABASE_HOST", "127.0.0.1"),
-        "NAME": os.getenv("DATABASE_NAME","ringtone"),
+        "NAME": os.getenv("DATABASE_NAME", "database_name"),
         "USER": os.getenv("DATABASE_USER", "postgres"),
         "PASSWORD": os.getenv("DATABASE_PASSWORD", "password"),
         "CONN_MAX_AGE": 500,
-        "ATOMIC_REQUESTS":True
+        "ATOMIC_REQUESTS": True,
     }
 }
 
@@ -265,105 +266,5 @@ CKEDITOR_CONFIGS = {
 
 #########
 
-CKEDITOR_CONFIGS = {
-    "default": {
-        "skin": "moono",
-        # 'skin': 'office2013',
-        "toolbar_Basic": [["Source", "-", "Bold", "Italic"]],
-        "toolbar_YourCustomToolbarConfig": [
-            {"name": "document", "items": ["Source", "-", "Save", "NewPage", "-"]},
-            {
-                "name": "clipboard",
-                "items": [
-                    "Cut",
-                    "Copy",
-                    "Paste",
-                    "PasteText",
-                    "PasteFromWord",
-                    "-",
-                    "Undo",
-                    "Redo",
-                ],
-            },
-            {"name": "editing", "items": ["Find", "Replace", "-", "SelectAll"]},
-            {
-                "name": "basicstyles",
-                "items": [
-                    "Bold",
-                    "Italic",
-                    "Underline",
-                    "Strike",
-                    "Subscript",
-                    "Superscript",
-                    "-",
-                    "RemoveFormat",
-                ],
-            },
-            {
-                "name": "paragraph",
-                "items": [
-                    "NumberedList",
-                    "BulletedList",
-                    "-",
-                    "Outdent",
-                    "Indent",
-                    "-",
-                    "Blockquote",
-                    "CreateDiv",
-                    "-",
-                    "JustifyLeft",
-                    "JustifyCenter",
-                    "JustifyRight",
-                    "JustifyBlock",
-                    "-",
-                    "BidiLtr",
-                    "BidiRtl",
-                ],
-            },
-            {
-                "name": "insert",
-                "items": [
-                    "Image",
-                    "HorizontalRule",
-                    "Smiley",
-                    "SpecialChar",
-                    "PageBreak",
-                ],
-            },
-            "/",
-            {"name": "styles", "items": ["Styles", "Format", "Font", "FontSize"]},
-            {"name": "colors", "items": ["TextColor", "BGColor"]},
-            {"name": "tools", "items": ["Maximize", "ShowBlocks"]},
-            {"name": "about", "items": ["About"]},
-            "/",  # put this to force next toolbar on new line
-            {
-                "name": "yourcustomtools",
-                "items": [
-                    # put the name of your editor.ui.addButton here
-                    "Preview",
-                    "Maximize",
-                ],
-            },
-        ],
-        "toolbar": "YourCustomToolbarConfig",  # put selected
-        "tabSpaces": 4,
-        "extraPlugins": ",".join(
-            [
-                "uploadimage",  # the upload image feature
-                # your extra plugins here
-                "div",
-                "autolink",
-                "autoembed",
-                "embedsemantic",
-                "autogrow",
-                # 'devtools',
-                "widget",
-                "lineutils",
-                "clipboard",
-                "dialog",
-                "dialogui",
-                "elementspath",
-            ]
-        ),
-    }
-}
+DJANGOCMS_REDIRECT_USE_REQUEST = True
+PREPEND_WWW = False
