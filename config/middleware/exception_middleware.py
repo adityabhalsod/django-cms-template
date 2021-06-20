@@ -11,13 +11,13 @@ class ExceptionMiddleware(object):
     def __call__(self, request):
         response = self.get_response(request)
         if response.status_code == 500:
-            return render(request, "500.html")
+            return render(request, "404.html")
             
         if response.status_code == 404:
             return render(request, "404.html")
         
         if response.status_code == 403:
-            return render(request, "403.html")
+            return render(request, "404.html")
             
         return response
 
