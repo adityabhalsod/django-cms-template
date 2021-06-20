@@ -1,8 +1,7 @@
 import logging
 from django.shortcuts import render 
-from django.conf import settings
 
-logger = logging.getLogger('StackDriverHandler')
+logger = logging.getLogger(__name__)
 
 class ExceptionMiddleware(object):
     def __init__(self, get_response):
@@ -24,6 +23,7 @@ class ExceptionMiddleware(object):
     def process_exception(self, request, exception):
         try:
             logger.info(request,extra=exception)
-        except Exception as e:
+        except Exception as exc:
+            logger.error(exc)
             logger.error(exception)
         return None
